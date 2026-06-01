@@ -11,16 +11,22 @@ const EMPTY_PRODUCT = { productName: '', sku: '', category: 'ale', season: 'year
 const EMPTY_FILE    = { name: '', type: 'can', format: 'PNG', size: '', fileUrl: '' }
 
 // -------------------------------------------------------
-// Auth helpers
+// Auth helpers — local credential check, no backend required
 // -------------------------------------------------------
-function getToken()  { return localStorage.getItem('dam_token') }
-function setToken(t) { localStorage.setItem('dam_token', t) }
-function clearToken(){ localStorage.removeItem('dam_token') }
-function authHeaders(){ return { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` } }
+const ADMIN_USERNAME = 'admin'
+const ADMIN_PASSWORD = 'newbelgium'
+const SESSION_KEY    = 'dam_authed'
 
+function isAuthed()   { return localStorage.getItem(SESSION_KEY) === 'true' }
+function signIn()     { localStorage.setItem(SESSION_KEY, 'true') }
+function signOut()    { localStorage.removeItem(SESSION_KEY) }
+
+// authFetch is kept for future backend use; on Vercel write operations are no-ops
+function getToken()   { return '' }
+function authHeaders(){ return { 'Content-Type': 'application/json' } }
 async function authFetch(path, options = {}) {
+  if (!API_URL) throw new Error('No backend configured. Write operations require a deployed API.')
   const res = await fetch(`${API_URL}${path}`, { ...options, headers: { ...authHeaders(), ...options.headers } })
-  if (res.status === 401) { clearToken(); window.location.reload(); throw new Error('Session expired.') }
   return res
 }
 
@@ -32,18 +38,15 @@ function LoginForm({ onLogin }) {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault()
-    setLoading(true); setError(null)
-    try {
-      const res  = await fetch(`${API_URL}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
-      setToken(data.token); onLogin()
-    } catch (err) { setError(err.message) }
-    finally { setLoading(false) }
+    setError(null)
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      signIn(); onLogin()
+    } else {
+      setError('Invalid credentials.')
+    }
   }
 
   return (
@@ -80,8 +83,8 @@ function LoginForm({ onLogin }) {
             </div>
           </div>
           <button type="submit" disabled={loading}
-            className="bg-blue-600 text-white text-sm font-medium py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
-            {loading ? 'Signing in…' : 'Sign In'}
+            className="bg-blue-600 text-white text-sm font-medium py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Sign In
           </button>
         </form>
         <p className="text-xs text-gray-400 mt-6 text-center">
@@ -343,7 +346,7 @@ function AddFileModal({ asset, onSave, onClose, saving }) {
 // -------------------------------------------------------
 export default function AdminPage() {
   const navigate = useNavigate()
-  const [authed,   setAuthed]   = useState(!!getToken())
+  const [authed,   setAuthed]   = useState(isAuthed())
   const [assets,   setAssets]   = useState([])
   const [loading,  setLoading]  = useState(false)
   const [creating, setCreating] = useState(false)
@@ -372,9 +375,8 @@ export default function AdminPage() {
 
   useEffect(() => { if (authed) loadAssets() }, [authed])
 
-  async function handleLogout() {
-    try { await authFetch('/auth/logout', { method: 'POST' }) } catch {}
-    clearToken(); setAuthed(false)
+  function handleLogout() {
+    signOut(); setAuthed(false)
   }
 
   async function handleCreate(form) {
