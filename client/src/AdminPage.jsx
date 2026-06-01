@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { API_URL } from './api.js'
 
 const CATEGORIES = ['ale', 'ipa', 'sour', 'lager']
 const SEASONS    = ['year-round', 'spring', 'summer', 'fall', 'winter', 'limited']
@@ -17,8 +18,8 @@ function setToken(t) { localStorage.setItem('dam_token', t) }
 function clearToken(){ localStorage.removeItem('dam_token') }
 function authHeaders(){ return { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` } }
 
-async function authFetch(url, options = {}) {
-  const res = await fetch(url, { ...options, headers: { ...authHeaders(), ...options.headers } })
+async function authFetch(path, options = {}) {
+  const res = await fetch(`${API_URL}${path}`, { ...options, headers: { ...authHeaders(), ...options.headers } })
   if (res.status === 401) { clearToken(); window.location.reload(); throw new Error('Session expired.') }
   return res
 }
@@ -37,7 +38,7 @@ function LoginForm({ onLogin }) {
     e.preventDefault()
     setLoading(true); setError(null)
     try {
-      const res  = await fetch('/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) })
+      const res  = await fetch(`${API_URL}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setToken(data.token); onLogin()
@@ -110,7 +111,7 @@ function ProductForm({ initial, onSave, onCancel, saving }) {
     setPreview(URL.createObjectURL(file)); setUploading(true)
     try {
       const body = new FormData(); body.append('image', file)
-      const res  = await fetch('/admin/upload', { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
+      const res  = await fetch(`${API_URL}/admin/upload`, { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
       if (res.status === 401) { clearToken(); window.location.reload(); return }
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -225,7 +226,7 @@ function AddFileModal({ asset, onSave, onClose, saving }) {
     set('size', `${(file.size / 1024 / 1024).toFixed(1)} MB`)
     try {
       const body = new FormData(); body.append('image', file)
-      const res  = await fetch('/admin/upload', { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
+      const res  = await fetch(`${API_URL}/admin/upload`, { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
       if (res.status === 401) { clearToken(); window.location.reload(); return }
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -365,7 +366,7 @@ export default function AdminPage() {
 
   async function loadAssets() {
     setLoading(true)
-    try { const res = await fetch('/assets'); const data = await res.json(); setAssets(data.assets) }
+    try { const res = await fetch(`${API_URL}/assets`); const data = await res.json(); setAssets(data.assets) }
     finally { setLoading(false) }
   }
 
@@ -676,7 +677,7 @@ function ProductFormPanel({ initial, onSave, onCancel, saving }) {
     setPreview(URL.createObjectURL(file)); setUploading(true)
     try {
       const body = new FormData(); body.append('image', file)
-      const res  = await fetch('/admin/upload', { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
+      const res  = await fetch(`${API_URL}/admin/upload`, { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body })
       if (res.status === 401) { clearToken(); window.location.reload(); return }
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)

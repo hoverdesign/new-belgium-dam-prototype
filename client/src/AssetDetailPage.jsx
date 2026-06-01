@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { getAsset } from './api.js'
 
 const SEASON_COLORS = {
   'year-round': 'bg-blue-100 text-blue-700',
@@ -82,34 +82,12 @@ function FileCard({ file, productName }) {
 
 export default function AssetDetailPage() {
   const { id } = useParams()
-  const [asset, setAsset] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const asset = getAsset(id)
 
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/assets/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Asset not found')
-        return res.json()
-      })
-      .then(data => setAsset(data))
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false))
-  }, [id])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-400">Loading…</p>
-      </div>
-    )
-  }
-
-  if (error || !asset) {
+  if (!asset) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
-        <p className="text-red-500 font-medium">{error ?? 'Asset not found'}</p>
+        <p className="text-red-500 font-medium">Asset not found</p>
         <Link to="/" className="text-sm text-blue-500 hover:underline">← Back to library</Link>
       </div>
     )

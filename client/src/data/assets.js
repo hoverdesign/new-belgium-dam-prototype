@@ -1,0 +1,867 @@
+const assets = [
+  {
+    "id": 1,
+    "productName": "Fat Tire Amber Ale",
+    "sku": "NBB-FT-001",
+    "imageUrl": "/images/fat-tire.png",
+    "tags": [
+      "amber",
+      "ale",
+      "classic",
+      "year-round",
+      "flagship"
+    ],
+    "category": "ale",
+    "season": "year-round",
+    "files": [
+      {
+        "id": "1-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/fat-tire.png"
+      },
+      {
+        "id": "1-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fat%20Tire%20Amber%20Ale%20Product%20Logo"
+      },
+      {
+        "id": "1-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fat%20Tire%20Amber%20Ale%20Label%20Artwork"
+      },
+      {
+        "id": "1-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fat%20Tire%20Amber%20Ale%20Lifestyle%20Photo"
+      },
+      {
+        "id": "1-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fat%20Tire%20Amber%20Ale%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "productName": "Voodoo Ranger IPA",
+    "sku": "NBB-VR-001",
+    "imageUrl": "/images/voodoo-ranger-ipa.png",
+    "tags": [
+      "ipa",
+      "hoppy",
+      "voodoo ranger",
+      "flagship",
+      "year-round"
+    ],
+    "category": "ipa",
+    "season": "year-round",
+    "files": [
+      {
+        "id": "2-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/voodoo-ranger-ipa.png"
+      },
+      {
+        "id": "2-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "2-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "2-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "2-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20IPA%20Social%20Media%20Kit"
+      },
+      {
+        "id": "2-logo-1780275063325",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "1.2 MB",
+        "fileUrl": "https://example.com/logo.png"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "productName": "Voodoo Ranger American Haze IPA",
+    "sku": "NBB-VR-002",
+    "imageUrl": "/images/voodoo-ranger-american-haze.png",
+    "tags": [
+      "ipa",
+      "hazy",
+      "voodoo ranger",
+      "tropical",
+      "unfiltered"
+    ],
+    "category": "ipa",
+    "season": "summer",
+    "files": [
+      {
+        "id": "3-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/voodoo-ranger-american-haze.png"
+      },
+      {
+        "id": "3-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20American%20Haze%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "3-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20American%20Haze%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "3-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20American%20Haze%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "3-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20American%20Haze%20IPA%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "productName": "Voodoo Ranger Juicy Haze IPA",
+    "sku": "NBB-VR-003",
+    "imageUrl": "/images/voodoo-ranger-juicy-haze.png",
+    "tags": [
+      "ipa",
+      "hazy",
+      "voodoo ranger",
+      "juicy",
+      "year-round"
+    ],
+    "category": "ipa",
+    "season": "year-round",
+    "files": [
+      {
+        "id": "4-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/voodoo-ranger-juicy-haze.png"
+      },
+      {
+        "id": "4-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Juicy%20Haze%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "4-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Juicy%20Haze%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "4-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Juicy%20Haze%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "4-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Juicy%20Haze%20IPA%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "productName": "Voodoo Ranger Imperial IPA",
+    "sku": "NBB-VR-004",
+    "imageUrl": "/images/voodoo-ranger-imperial.png",
+    "tags": [
+      "ipa",
+      "imperial",
+      "voodoo ranger",
+      "strong",
+      "year-round"
+    ],
+    "category": "ipa",
+    "season": "year-round",
+    "files": [
+      {
+        "id": "5-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/voodoo-ranger-imperial.png"
+      },
+      {
+        "id": "5-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Imperial%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "5-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Imperial%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "5-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Imperial%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "5-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Voodoo%20Ranger%20Imperial%20IPA%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "productName": "Accumulation White IPA",
+    "sku": "NBB-AC-001",
+    "imageUrl": "/images/accumulation.png",
+    "tags": [
+      "ipa",
+      "white ipa",
+      "wheat",
+      "winter",
+      "seasonal"
+    ],
+    "category": "ipa",
+    "season": "winter",
+    "files": [
+      {
+        "id": "6-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/accumulation.png"
+      },
+      {
+        "id": "6-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Accumulation%20White%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "6-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Accumulation%20White%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "6-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Accumulation%20White%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "6-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Accumulation%20White%20IPA%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "productName": "Featherweight Session IPA",
+    "sku": "NBB-FW-001",
+    "imageUrl": "https://placehold.co/400x400?text=Featherweight",
+    "tags": [
+      "ipa",
+      "session",
+      "light",
+      "low-calorie",
+      "summer"
+    ],
+    "category": "ipa",
+    "season": "summer",
+    "files": [
+      {
+        "id": "7-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/400x400?text=Featherweight"
+      },
+      {
+        "id": "7-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Featherweight%20Session%20IPA%20Product%20Logo"
+      },
+      {
+        "id": "7-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Featherweight%20Session%20IPA%20Label%20Artwork"
+      },
+      {
+        "id": "7-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Featherweight%20Session%20IPA%20Lifestyle%20Photo"
+      },
+      {
+        "id": "7-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Featherweight%20Session%20IPA%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "productName": "Snapshot Wheat Ale",
+    "sku": "NBB-SS-001",
+    "imageUrl": "https://placehold.co/400x400?text=Snapshot+Wheat",
+    "tags": [
+      "ale",
+      "wheat",
+      "light",
+      "refreshing",
+      "spring"
+    ],
+    "category": "ale",
+    "season": "spring",
+    "files": [
+      {
+        "id": "8-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/400x400?text=Snapshot+Wheat"
+      },
+      {
+        "id": "8-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Snapshot%20Wheat%20Ale%20Product%20Logo"
+      },
+      {
+        "id": "8-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Snapshot%20Wheat%20Ale%20Label%20Artwork"
+      },
+      {
+        "id": "8-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Snapshot%20Wheat%20Ale%20Lifestyle%20Photo"
+      },
+      {
+        "id": "8-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Snapshot%20Wheat%20Ale%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "productName": "La Folie Sour Brown Ale",
+    "sku": "NBB-LF-001",
+    "imageUrl": "/images/la-folie.png",
+    "tags": [
+      "sour",
+      "brown ale",
+      "barrel-aged",
+      "limited",
+      "tart"
+    ],
+    "category": "sour",
+    "season": "limited",
+    "files": [
+      {
+        "id": "9-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/la-folie.png"
+      },
+      {
+        "id": "9-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=La%20Folie%20Sour%20Brown%20Ale%20Product%20Logo"
+      },
+      {
+        "id": "9-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=La%20Folie%20Sour%20Brown%20Ale%20Label%20Artwork"
+      },
+      {
+        "id": "9-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=La%20Folie%20Sour%20Brown%20Ale%20Lifestyle%20Photo"
+      },
+      {
+        "id": "9-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=La%20Folie%20Sour%20Brown%20Ale%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "productName": "Lips of Faith Transatlantique Kriek",
+    "sku": "NBB-LOF-001",
+    "imageUrl": "/images/transatlantique-kriek.png",
+    "tags": [
+      "sour",
+      "cherry",
+      "lips of faith",
+      "belgian",
+      "fall"
+    ],
+    "category": "sour",
+    "season": "fall",
+    "files": [
+      {
+        "id": "10-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/transatlantique-kriek.png"
+      },
+      {
+        "id": "10-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Lips%20of%20Faith%20Transatlantique%20Kriek%20Product%20Logo"
+      },
+      {
+        "id": "10-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Lips%20of%20Faith%20Transatlantique%20Kriek%20Label%20Artwork"
+      },
+      {
+        "id": "10-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Lips%20of%20Faith%20Transatlantique%20Kriek%20Lifestyle%20Photo"
+      },
+      {
+        "id": "10-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Lips%20of%20Faith%20Transatlantique%20Kriek%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "productName": "Tartastic Strawberry Lemon Sour",
+    "sku": "NBB-TT-001",
+    "imageUrl": "https://placehold.co/400x400?text=Tartastic",
+    "tags": [
+      "sour",
+      "strawberry",
+      "lemon",
+      "fruit",
+      "summer"
+    ],
+    "category": "sour",
+    "season": "summer",
+    "files": [
+      {
+        "id": "11-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/400x400?text=Tartastic"
+      },
+      {
+        "id": "11-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Tartastic%20Strawberry%20Lemon%20Sour%20Product%20Logo"
+      },
+      {
+        "id": "11-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Tartastic%20Strawberry%20Lemon%20Sour%20Label%20Artwork"
+      },
+      {
+        "id": "11-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Tartastic%20Strawberry%20Lemon%20Sour%20Lifestyle%20Photo"
+      },
+      {
+        "id": "11-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Tartastic%20Strawberry%20Lemon%20Sour%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "productName": "Dominga Mimosa Sour",
+    "sku": "NBB-DM-001",
+    "imageUrl": "https://placehold.co/400x400?text=Dominga",
+    "tags": [
+      "sour",
+      "orange",
+      "mimosa",
+      "brunch",
+      "spring"
+    ],
+    "category": "sour",
+    "season": "spring",
+    "files": [
+      {
+        "id": "12-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/400x400?text=Dominga"
+      },
+      {
+        "id": "12-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Dominga%20Mimosa%20Sour%20Product%20Logo"
+      },
+      {
+        "id": "12-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Dominga%20Mimosa%20Sour%20Label%20Artwork"
+      },
+      {
+        "id": "12-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Dominga%20Mimosa%20Sour%20Lifestyle%20Photo"
+      },
+      {
+        "id": "12-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Dominga%20Mimosa%20Sour%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "productName": "Fruit Smash Sour",
+    "sku": "NBB-FS-001",
+    "imageUrl": "/images/fruit-smash.png",
+    "tags": [
+      "sour",
+      "fruit",
+      "mixed berry",
+      "refreshing",
+      "summer"
+    ],
+    "category": "sour",
+    "season": "summer",
+    "files": [
+      {
+        "id": "13-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/fruit-smash.png"
+      },
+      {
+        "id": "13-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fruit%20Smash%20Sour%20Product%20Logo"
+      },
+      {
+        "id": "13-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fruit%20Smash%20Sour%20Label%20Artwork"
+      },
+      {
+        "id": "13-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fruit%20Smash%20Sour%20Lifestyle%20Photo"
+      },
+      {
+        "id": "13-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Fruit%20Smash%20Sour%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "productName": "1554 Black Lager",
+    "sku": "NBB-1554-001",
+    "imageUrl": "/images/1554.png",
+    "tags": [
+      "lager",
+      "dark",
+      "black lager",
+      "classic",
+      "year-round"
+    ],
+    "category": "lager",
+    "season": "year-round",
+    "files": [
+      {
+        "id": "14-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "/images/1554.png"
+      },
+      {
+        "id": "14-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=1554%20Black%20Lager%20Product%20Logo"
+      },
+      {
+        "id": "14-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=1554%20Black%20Lager%20Label%20Artwork"
+      },
+      {
+        "id": "14-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=1554%20Black%20Lager%20Lifestyle%20Photo"
+      },
+      {
+        "id": "14-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=1554%20Black%20Lager%20Social%20Media%20Kit"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "productName": "Mural Agua Fresca Cerveza",
+    "sku": "NBB-MR-001",
+    "imageUrl": "https://placehold.co/400x400?text=Mural+Cerveza",
+    "tags": [
+      "lager",
+      "cerveza",
+      "light",
+      "hispanic heritage",
+      "summer"
+    ],
+    "category": "lager",
+    "season": "summer",
+    "files": [
+      {
+        "id": "15-can",
+        "name": "Can / Bottle Shot",
+        "type": "can",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/400x400?text=Mural+Cerveza"
+      },
+      {
+        "id": "15-logo",
+        "name": "Product Logo",
+        "type": "logo",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Mural%20Agua%20Fresca%20Cerveza%20Product%20Logo"
+      },
+      {
+        "id": "15-label",
+        "name": "Label Artwork",
+        "type": "label",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Mural%20Agua%20Fresca%20Cerveza%20Label%20Artwork"
+      },
+      {
+        "id": "15-lifestyle",
+        "name": "Lifestyle Photo",
+        "type": "lifestyle",
+        "format": "JPG",
+        "size": "1.8 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Mural%20Agua%20Fresca%20Cerveza%20Lifestyle%20Photo"
+      },
+      {
+        "id": "15-social",
+        "name": "Social Media Kit",
+        "type": "social",
+        "format": "PNG",
+        "size": "2.4 MB",
+        "fileUrl": "https://placehold.co/800x800/1a1a2e/ffffff?text=Mural%20Agua%20Fresca%20Cerveza%20Social%20Media%20Kit"
+      }
+    ]
+  }
+];
+
+export default assets;

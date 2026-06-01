@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import AdminPage from './AdminPage.jsx'
 import AssetDetailPage from './AssetDetailPage.jsx'
 import AddAssetPage from './AddAssetPage.jsx'
+import { getAllAssets, searchAssets, filterAssets } from './api.js'
 
 const CATEGORIES = ['all', 'ale', 'ipa', 'sour', 'lager']
 
@@ -50,47 +51,21 @@ function AssetCard({ asset }) {
 }
 
 export default function App() {
-  const [assets, setAssets] = useState([])
+  const [assets, setAssets] = useState(getAllAssets)
   const [searchInput, setSearchInput] = useState('')
   const [activeCategory, setActiveCategory] = useState('all')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  async function fetchAssets(url) {
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch(url)
-      if (!res.ok) throw new Error(`API error: ${res.status}`)
-      const data = await res.json()
-      setAssets(data.assets)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Load all assets on first render
-  useEffect(() => {
-    fetchAssets('/assets')
-  }, [])
 
   function handleSearch(e) {
     e.preventDefault()
     if (!searchInput.trim()) return
     setActiveCategory('all')
-    fetchAssets(`/assets/search?q=${encodeURIComponent(searchInput.trim())}`)
+    setAssets(searchAssets(searchInput.trim()))
   }
 
   function handleCategoryClick(category) {
     setActiveCategory(category)
     setSearchInput('')
-    if (category === 'all') {
-      fetchAssets('/assets')
-    } else {
-      fetchAssets(`/assets/filter?category=${category}`)
-    }
+    setAssets(filterAssets(category))
   }
 
   return (
@@ -98,12 +73,12 @@ export default function App() {
       <Route path="/admin/*" element={<AdminPage />} />
       <Route path="/admin/product/:id/add-asset" element={<AddAssetPage />} />
       <Route path="/product/:id" element={<AssetDetailPage />} />
-      <Route path="/*" element={<PublicLibrary assets={assets} loading={loading} error={error} searchInput={searchInput} setSearchInput={setSearchInput} activeCategory={activeCategory} handleSearch={handleSearch} handleCategoryClick={handleCategoryClick} />} />
+      <Route path="/*" element={<PublicLibrary assets={assets} searchInput={searchInput} setSearchInput={setSearchInput} activeCategory={activeCategory} handleSearch={handleSearch} handleCategoryClick={handleCategoryClick} />} />
     </Routes>
   )
 }
 
-function PublicLibrary({ assets, loading, error, searchInput, setSearchInput, activeCategory, handleSearch, handleCategoryClick }) {
+function PublicLibrary({ assets, searchInput, setSearchInput, activeCategory, handleSearch, handleCategoryClick }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -152,23 +127,11 @@ function PublicLibrary({ assets, loading, error, searchInput, setSearchInput, ac
 
       {/* Main content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        {loading && (
-          <p className="text-center text-gray-400 py-16">Loading assets…</p>
-        )}
-
-        {error && (
-          <div className="text-center py-16">
-            <p className="text-red-500 font-medium">Could not load assets</p>
-            <p className="text-gray-400 text-sm mt-1">{error}</p>
-            <p className="text-gray-400 text-sm">Make sure the API server is running on port 3000.</p>
-          </div>
-        )}
-
-        {!loading && !error && assets.length === 0 && (
+        {assets.length === 0 && (
           <p className="text-center text-gray-400 py-16">No assets found.</p>
         )}
 
-        {!loading && !error && assets.length > 0 && (
+        {assets.length > 0 && (
           <>
             <p className="text-sm text-gray-400 mb-4">Showing {assets.length} asset{assets.length !== 1 ? 's' : ''}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

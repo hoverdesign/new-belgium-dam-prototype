@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { API_URL } from './api.js'
 
 // -------------------------------------------------------
 // File type detection
@@ -91,7 +92,7 @@ export default function AddAssetPage() {
 
   // Load product info
   useEffect(() => {
-    fetch(`/assets/${id}`)
+    fetch(`${API_URL}/assets/${id}`)
       .then(r => r.json())
       .then(d => setProduct(d))
       .catch(() => setError('Could not load product.'))
@@ -117,7 +118,7 @@ export default function AddAssetPage() {
     try {
       const body = new FormData()
       body.append('file', f)
-      const res = await fetch('/admin/upload-asset', {
+      const res = await fetch(`${API_URL}/admin/upload-asset`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${getToken()}` },
         body,
@@ -154,7 +155,7 @@ export default function AddAssetPage() {
     if (!name.trim()) return setError('Please enter an asset name.')
     setSaving(true); setError(null)
     try {
-      const res = await fetch(`/assets/${id}/files`, {
+      const res = await fetch(`${API_URL}/assets/${id}/files`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({

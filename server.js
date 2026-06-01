@@ -4,7 +4,17 @@ const path = require('path');
 const multer = require('multer');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// Allow requests from the Vercel frontend (and localhost in dev)
+app.use((req, res, next) => {
+  const allowed = process.env.ALLOWED_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', allowed);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 const DB_PATH = path.join(__dirname, 'data', 'assets.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 
