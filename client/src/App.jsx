@@ -70,8 +70,8 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/admin/*" element={<AdminPage />} />
       <Route path="/admin/product/:id/add-asset" element={<AddAssetPage />} />
+      <Route path="/admin/*" element={<AdminPage />} />
       <Route path="/product/:id" element={<AssetDetailPage />} />
       <Route path="/*" element={<PublicLibrary assets={assets} searchInput={searchInput} setSearchInput={setSearchInput} activeCategory={activeCategory} handleSearch={handleSearch} handleCategoryClick={handleCategoryClick} />} />
     </Routes>
