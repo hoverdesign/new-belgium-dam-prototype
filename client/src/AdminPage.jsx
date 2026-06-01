@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { API_URL } from './api.js'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const CATEGORIES = ['ale', 'ipa', 'sour', 'lager']
 const SEASONS    = ['year-round', 'spring', 'summer', 'fall', 'winter', 'limited']

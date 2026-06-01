@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { API_URL } from './api.js'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 // -------------------------------------------------------
 // File type detection
