@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import AdminPage from './AdminPage.jsx'
+import AssetDetailPage from './AssetDetailPage.jsx'
+import AddAssetPage from './AddAssetPage.jsx'
 
 const CATEGORIES = ['all', 'ale', 'ipa', 'sour', 'lager']
 
@@ -14,8 +16,12 @@ const SEASON_COLORS = {
 }
 
 function AssetCard({ asset }) {
+  const navigate = useNavigate()
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+    <div
+      onClick={() => navigate(`/product/${asset.id}`)}
+      className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer"
+    >
       <img
         src={asset.imageUrl}
         alt={asset.productName}
@@ -90,6 +96,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/admin/*" element={<AdminPage />} />
+      <Route path="/admin/product/:id/add-asset" element={<AddAssetPage />} />
+      <Route path="/product/:id" element={<AssetDetailPage />} />
       <Route path="/*" element={<PublicLibrary assets={assets} loading={loading} error={error} searchInput={searchInput} setSearchInput={setSearchInput} activeCategory={activeCategory} handleSearch={handleSearch} handleCategoryClick={handleCategoryClick} />} />
     </Routes>
   )

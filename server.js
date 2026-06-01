@@ -19,13 +19,20 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`);
   }
 });
+// Cover image uploader — images only
 const upload = multer({
   storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB max
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-    cb(null, allowed.includes(path.extname(file.originalname).toLowerCase()));
+    const imageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+    cb(null, imageExts.includes(path.extname(file.originalname).toLowerCase()));
   }
+});
+
+// Brand asset uploader — any file type up to 100 MB
+const uploadAny = multer({
+  storage,
+  limits: { fileSize: 100 * 1024 * 1024 },
 });
 
 // -------------------------------------------------------
@@ -69,6 +76,25 @@ app.post('/admin/upload', requireAuth, upload.single('image'), (req, res) => {
   }
   const url = `http://localhost:${PORT}/uploads/${req.file.filename}`;
   res.json({ url });
+});
+
+// -------------------------------------------------------
+// POST /admin/upload-asset — upload any brand asset file (auth required)
+// Returns: { url, filename, originalName, format, size }
+// -------------------------------------------------------
+app.post('/admin/upload-asset', requireAuth, uploadAny.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file provided.' });
+  const ext  = path.extname(req.file.originalname).toLowerCase().replace('.', '');
+  const size = req.file.size < 1024 * 1024
+    ? `${(req.file.size / 1024).toFixed(0)} KB`
+    : `${(req.file.size / 1024 / 1024).toFixed(1)} MB`;
+  res.json({
+    url:          `http://localhost:${PORT}/uploads/${req.file.filename}`,
+    filename:     req.file.filename,
+    originalName: req.file.originalname,
+    format:       ext.toUpperCase(),
+    size,
+  });
 });
 
 // -------------------------------------------------------
@@ -134,6 +160,47 @@ app.get('/assets/filter', (req, res) => {
     asset => asset.category.toLowerCase() === category.toLowerCase()
   );
   res.json({ category, total: results.length, assets: results });
+});
+
+// -------------------------------------------------------
+// GET /assets/:id — single asset with its files
+// -------------------------------------------------------
+app.get('/assets/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const assets = readDB();
+  const asset = assets.find(a => a.id === id);
+  if (!asset) return res.status(404).json({ error: `Asset with id ${id} not found.` });
+  res.json(asset);
+});
+
+// -------------------------------------------------------
+// POST /assets/:id/files — add a downloadable file to an asset (auth required)
+// Body: { name, type, format, fileUrl, size }
+// -------------------------------------------------------
+app.post('/assets/:id/files', requireAuth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const assets = readDB();
+  const index = assets.findIndex(a => a.id === id);
+  if (index === -1) return res.status(404).json({ error: `Asset with id ${id} not found.` });
+
+  const { name, type, format, fileUrl, size } = req.body;
+  if (!name || !format || !fileUrl) {
+    return res.status(400).json({ error: 'name, format, and fileUrl are required.' });
+  }
+
+  const newFile = {
+    id: `${id}-${type || 'file'}-${Date.now()}`,
+    name,
+    type: type || 'other',
+    format: format.toUpperCase(),
+    size: size || 'Unknown',
+    fileUrl,
+  };
+
+  if (!assets[index].files) assets[index].files = [];
+  assets[index].files.push(newFile);
+  writeDB(assets);
+  res.status(201).json(newFile);
 });
 
 // -------------------------------------------------------

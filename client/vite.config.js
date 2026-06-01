@@ -9,6 +9,7 @@ export default defineConfig({
       '/assets': 'http://localhost:3000',
       '/auth': 'http://localhost:3000',
       '/admin/upload': 'http://localhost:3000',
+      '/admin/upload-asset': 'http://localhost:3000',
       '/uploads': 'http://localhost:3000',
       '/images': 'http://localhost:3000'
     }
